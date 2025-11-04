@@ -26,9 +26,9 @@ class MainViewController: UIViewController {
         return $0
     }(UIImageView())
     
-    private lazy var action: UIAction = UIAction { [weak self] _ in
+    private lazy var action: UIAction = UIAction { _ in
         let settingsViewController = SettingsViewController()
-        self?.navigationController?.pushViewController(settingsViewController, animated: true)
+        self.navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
     private lazy var saveButton: UIButton = {
