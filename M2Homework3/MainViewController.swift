@@ -43,9 +43,83 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .white
+        title = "Главная"
+        
+        view.addSubview(rootStackView)
+        
+        rootStackView.addArrangedSubview(avatarImageView)
+        rootStackView.addArrangedSubview(subStackView)
+        
+        subStackView.addArrangedSubview(setupLabel(text: "User Name", font: .boldSystemFont(ofSize: 20)))
+        subStackView.addArrangedSubview(setupLabel(text: "26 years"))
+
+        view.addSubview(contentName)
+        view.addSubview(content)
+        view.addSubview(saveButton)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(actionForButton))
+        setupConstraints()
     }
-
-
+    
 }
 
+extension MainViewController {
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            rootStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            rootStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            rootStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            contentName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            contentName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            contentName.topAnchor.constraint(equalTo: rootStackView.bottomAnchor, constant: 35),
+            
+            content.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
+            content.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            content.topAnchor.constraint(equalTo: contentName.bottomAnchor, constant: 11),
+            
+            saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
+            saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            saveButton.topAnchor.constraint(equalTo: content.bottomAnchor, constant: 85),
+                                    ])
+    }
+    
+    private func createStackView(
+        axis: NSLayoutConstraint.Axis,
+        distribution: UIStackView.Distribution = .fillProportionally,
+        spacing: CGFloat,
+        alignment: UIStackView.Alignment
+    ) -> UIStackView {
+        
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = axis
+        stackView.distribution = distribution
+        stackView.spacing = spacing
+        stackView.alignment = alignment
+        
+        return stackView
+    }
+    
+    private func setupLabel(
+        text: String,
+        font: UIFont = .systemFont(ofSize: 14)
+    ) -> UILabel {
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.font = font
+        label.numberOfLines = 0
+        
+        return label
+    }
+    
+    @objc func actionForButton () {
+        let settingViewController = SettingsViewController()
+        navigationController?.pushViewController(settingViewController, animated: true)
+    }
+
+}
