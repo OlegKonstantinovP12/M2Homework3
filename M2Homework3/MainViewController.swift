@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
         $0.contentMode = .scaleAspectFill
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        $0.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        $0.widthAnchor.constraint(equalTo: $0.heightAnchor, multiplier: 1).isActive = true
         return $0
     }(UIImageView())
     
